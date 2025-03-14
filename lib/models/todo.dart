@@ -1,11 +1,11 @@
-import 'dart:convert';
-
 class Todo {
+  final int? id;
   final String title;
   final String description;
   final bool isDone;
 
   Todo({
+    this.id,
     required this.title,
     required this.description,
     required this.isDone,
@@ -13,6 +13,10 @@ class Todo {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
+
+    if (id != null) {
+      result.addAll({'id': id});
+    }
 
     result.addAll({'title': title});
     result.addAll({'description': description});
@@ -23,13 +27,10 @@ class Todo {
 
   factory Todo.fromMap(Map<String, dynamic> map) {
     return Todo(
+      id: map['id']?.toInt(),
       title: map['title'] ?? '',
       description: map['description'] ?? '',
-      isDone: map['is_done'] ?? false,
+      isDone: map['is_done'] == 1 ? true : false,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory Todo.fromJson(String source) => Todo.fromMap(json.decode(source));
 }

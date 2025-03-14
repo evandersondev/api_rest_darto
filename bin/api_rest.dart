@@ -8,7 +8,7 @@ void main() async {
 
   app.use(createRoutes());
 
-  app.get('/ping', (req, res) async {
+  app.get('/ping', (req, res) {
     res.json({'message': 'pong'});
   });
 
